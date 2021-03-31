@@ -11,14 +11,14 @@ import java.awt.image.DataBufferInt;
  * @author Magnus Silverdal
  */
 public abstract class ScreenRenderer extends Canvas implements Runnable{
-    public int WIDTH;
-    public int HEIGTH;
+    private int WIDTH;
+    private int HEIGTH;
     private int scale;
 
     private JFrame frame;
     private String title = "";
     private BufferedImage image;
-    private int[] pixels;
+    private Screen screen;
 
     private Thread thread;
     private boolean running = false;
@@ -31,7 +31,8 @@ public abstract class ScreenRenderer extends Canvas implements Runnable{
         this.HEIGTH = height;
         this.scale = scale;
         image = new BufferedImage(WIDTH/scale, HEIGTH/scale, BufferedImage.TYPE_INT_RGB);
-        pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
+        screen = new Screen(((DataBufferInt) image.getRaster().getDataBuffer()).getData(),image.getWidth(),
+                image.getHeight());
         // Frame data
         setPreferredSize(new Dimension(WIDTH, HEIGTH));
         frame = new JFrame(title);
@@ -112,5 +113,9 @@ public abstract class ScreenRenderer extends Canvas implements Runnable{
     }
 
     public abstract void update();
+
+    public Screen getScreen() {
+        return screen;
+    }
 
 }
