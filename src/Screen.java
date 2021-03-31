@@ -85,4 +85,11 @@ public class Screen {
             drawPixel (x, y, color);
         }
     }
+
+    public void drawTriangle(Triangle t, int color) {
+        Line[] triangel = t.getEdges();
+        for (Line l : triangel) {
+            drawLine(l,color);
+        }
+    }
 }
