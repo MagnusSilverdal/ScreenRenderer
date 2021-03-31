@@ -15,6 +15,8 @@ public class ScreenRendererTest extends ScreenRenderer{
     }
 
     public void update() {
+        Line l = new Line(new Point(20,30), new Point(40,60));
+        getScreen().drawLine(l,0xFF00FF);
         getScreen().drawPixel((int)(Math.random()*width),(int)(Math.random()*height),0xFFFFFF);
     }
 
