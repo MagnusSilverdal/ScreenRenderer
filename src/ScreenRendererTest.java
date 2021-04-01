@@ -9,7 +9,7 @@ public class ScreenRendererTest extends ScreenRenderer{
     private static int width = 400;
     private static int height = (int)(width/aspectRatio);
     private static int scale = 4;
-    private Triangle t = new Triangle(new Point(30,40),new Point(60,50),new Point(35,60));
+    private Triangle t = new Triangle(new Point(30,40),new Point(60,50),new Point(30,60));
 
     public ScreenRendererTest() {
         super(width*scale, height*scale, scale);

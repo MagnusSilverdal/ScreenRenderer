@@ -21,4 +21,10 @@ public class Triangle {
     public Line[] getEdges() {
         return edges;
     }
+
+    public int[] getOrderOfVertices() {
+        int[] order = new int[3];
+        // Find the ordering of vertices for Bresenhamstyle fill...
+        return order;
+    }
 }

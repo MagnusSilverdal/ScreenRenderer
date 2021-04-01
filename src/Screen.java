@@ -27,13 +27,44 @@ public class Screen {
         drawLine(l.getStart(),l.getEnd(),color);
     }
 
-    // Bresenhams algorithm for fast lines
     public void drawLine(Point start, Point end, int color) {
+        int[] pixels = getPointsFromLine(start,end);
+        for (int i = 0 ; i < pixels.length ; i++) {
+            drawPixel(pixels[i++],pixels[i],color);
+        }
+    }
+
+    public void drawTriangle(Triangle t, int color) {
+        Line[] triangel = t.getEdges();
+        for (Line l : triangel) {
+            drawLine(l,color);
+        }
+    }
+
+    public void fillTriangle(Triangle t, int color) {
+        Line[] triangel = t.getEdges();
+        for (Line l : triangel) {
+            int[] pixels = getPointsFromLine(l.getStart(),l.getEnd());
+            for (int i = 0 ; i < pixels.length ; i++) {
+                drawPixel(pixels[i++],pixels[i],color);
+            }
+        }
+    }
+
+    public int[] getPointsFromLine(Point start, Point end) {
+        int deltax = end.getX()-start.getX();
+        int deltay = end.getY()-start.getY();
+        if (deltax < 0)
+            deltax = -deltax;
+        if (deltay < 0)
+            deltay = -deltay;
+        int[] point = new int[(deltax>deltay?deltax+1:deltay+1)*2];
+        // Bresenhams algorithm for fast lines
         int x, y;
         int dx, dy;
         int incx, incy;
         int balance;
-
+        int count = 0;
         if (end.getX() >= start.getX()) {
             dx = end.getX() - start.getX();
             incx = 1;
@@ -59,7 +90,8 @@ public class Screen {
             dx <<= 1;
 
             while (x != end.getX()) {
-                drawPixel(x, y, color);
+                point[count++] = x;
+                point[count++] = y;
                 if (balance >= 0) {
                     y += incy;
                     balance -= dx;
@@ -67,14 +99,16 @@ public class Screen {
                 balance += dy;
                 x += incx;
             }
-            drawPixel(x, y, color);
+            point[count++] = x;
+            point[count] = y;
         } else {
             dx <<= 1;
             balance = dx - dy;
             dy <<= 1;
 
             while (y != end.getY()) {
-                drawPixel(x, y, color);
+                point[count++] = x;
+                point[count++] = y;
                 if (balance >= 0) {
                     x += incx;
                     balance -= dy;
@@ -82,14 +116,9 @@ public class Screen {
                 balance += dx;
                 y += incy;
             }
-            drawPixel (x, y, color);
+            point[count++] = x;
+            point[count] = y;
         }
-    }
-
-    public void drawTriangle(Triangle t, int color) {
-        Line[] triangel = t.getEdges();
-        for (Line l : triangel) {
-            drawLine(l,color);
-        }
+        return point;
     }
 }
