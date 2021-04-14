@@ -13,18 +13,18 @@ public class Triangle {
         vertices[0] = p0;
         vertices[1] = p1;
         vertices[2] = p2;
-        edges[0] = new Line(p0,p1);
-        edges[1] = new Line(p1,p2);
-        edges[2] = new Line(p2,p0);
+        sortVertices();
+        edges[0] = new Line(vertices[0],vertices[1]);
+        edges[1] = new Line(vertices[1],vertices[2]);
+        edges[2] = new Line(vertices[2],vertices[0]);
     }
 
     public Line[] getEdges() {
         return edges;
     }
 
-    public int[] getOrderOfVertices() {
-        int[] order = new int[3];
-        // Find the ordering of vertices for Bresenhamstyle fill...
-        return order;
+    // Find the ordering of vertices for Bresenhamstyle fill...
+    public void sortVertices() {
+
     }
 }

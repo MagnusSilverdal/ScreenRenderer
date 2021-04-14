@@ -42,12 +42,40 @@ public class Screen {
     }
 
     public void fillTriangle(Triangle t, int color) {
-        Line[] triangel = t.getEdges();
-        for (Line l : triangel) {
-            int[] pixels = getPointsFromLine(l.getStart(),l.getEnd());
-            for (int i = 0 ; i < pixels.length ; i++) {
-                drawPixel(pixels[i++],pixels[i],color);
+        Line[] triangle = t.getEdges();
+        // Only works for triangles with 2:nd Point as top, need to order them
+        int[] pixelsLine1 = getPointsFromLine(triangle[0].getEnd(),triangle[0].getStart());
+        int[] pixelsLine2 = getPointsFromLine(triangle[1].getStart(),triangle[1].getEnd());
+        int[] pixelsLine3 = getPointsFromLine(triangle[2].getEnd(),triangle[2].getStart());
+        // Debug...
+        for (int i = 0 ; i < pixelsLine1.length ; i+=2) {
+            System.out.println("("+pixelsLine1[i]+","+pixelsLine1[i+1]+")");
+        }
+        System.out.println();
+        for (int i = 0 ; i < pixelsLine2.length ; i+=2) {
+            System.out.println("("+pixelsLine2[i]+","+pixelsLine2[i+1]+")");
+        }
+        System.out.println();
+        for (int i = 0 ; i < pixelsLine3.length ; i+=2) {
+            System.out.println("("+pixelsLine3[i]+","+pixelsLine3[i+1]+")");
+        }
+        System.out.println();
+        // end Debug..
+
+        int index1 = 0;
+        int index2 = 0;
+        while (index1 <= pixelsLine1.length-1 && index2 <= pixelsLine2.length-1) {
+            while(index1 < pixelsLine1.length-3 && pixelsLine1[index1+1] == pixelsLine1[index1+3]) {
+                index1+=2;
             }
+            while(index2 < pixelsLine2.length-3 && pixelsLine2[index2+1] == pixelsLine2[index2+3]) {
+                index2+=2;
+            }
+            for (int x = pixelsLine1[index1] ; x <= pixelsLine2[index2] ; x++) {
+                drawPixel(x,pixelsLine1[index1+1],color);
+            }
+            index1+=2;
+            index2+=2;
         }
     }
 

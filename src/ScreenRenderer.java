@@ -23,7 +23,7 @@ public abstract class ScreenRenderer extends Canvas implements Runnable{
     private Thread thread;
     private boolean running = false;
     private int fps = 25;
-    private int ups = 25;
+    private int ups = 1;
 
     public ScreenRenderer(int width, int height, int scale) {
         // Screen data
