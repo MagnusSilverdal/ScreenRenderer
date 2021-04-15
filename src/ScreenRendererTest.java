@@ -26,10 +26,19 @@ public class ScreenRendererTest extends ScreenRenderer{
     }
 
     public void update() {
+        getScreen().fillTriangle(t1t,0x00ffff);
+        getScreen().fillTriangle(t2t,0xff00ff);
+        getScreen().fillTriangle(t3t,0xffff00);
+        getScreen().fillTriangle(t4t,0x00ff00);
         getScreen().drawTriangle(t1t,0xffffff);
         getScreen().drawTriangle(t2t,0xffffff);
         getScreen().drawTriangle(t3t,0xffffff);
         getScreen().drawTriangle(t4t,0xffffff);
+        getScreen().drawTriangle(t1,0xffffff);
+        getScreen().drawTriangle(t2,0xffffff);
+        getScreen().drawTriangle(t3,0xffffff);
+        getScreen().drawTriangle(t4,0xffffff);
+
         getScreen().fillTriangle(t1,0x00ffff);
         getScreen().fillTriangle(t2,0xff00ff);
         getScreen().fillTriangle(t3,0xffff00);
